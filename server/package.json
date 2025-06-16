@@ -1,0 +1,21 @@
+{
+  "name": "bidding-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js",
+    "dev2": "node src2/index.js",
+    "dev3": "node src3/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1",
+    "vitest": "^3.1.4"
+  }
+}
