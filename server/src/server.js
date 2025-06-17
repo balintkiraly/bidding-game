@@ -17,5 +17,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(corsHeaders);
 
 app.post("/bid", postBidHandler);
+app.get("/ping", (_req, res) => res.json({ message: "PONG" }) );
 
 export default app;

@@ -23,7 +23,7 @@ const WIN_TROPHIES = 5;
 const initialPlayers: Player[] = [
   {
     name: "Akos",
-    url: "http://localhost:3001",
+    url: "http://localhost:3000",
     coins: 100,
     trophies: 0,
     avatar: "/images/akos.png",
@@ -31,7 +31,7 @@ const initialPlayers: Player[] = [
   },
   {
     name: "Razvan",
-    url: "http://localhost:3002",
+    url: "http://localhost:3001",
     coins: 100,
     trophies: 0,
     avatar: "/images/razvan.png",
@@ -39,7 +39,7 @@ const initialPlayers: Player[] = [
   },
   {
     name: "Kristof",
-    url: "http://localhost:3003",
+    url: "http://localhost:3002",
     coins: 100,
     trophies: 0,
     avatar: "/images/kristof.png",
@@ -48,12 +48,16 @@ const initialPlayers: Player[] = [
 ];
 
 // Helpers
+export const coinFormat = (coin: number) => {
+  return Math.round((coin + Number.EPSILON) * 100) / 100
+}
+
 const getOthers = (players: Player[], playerName: string) =>
   players.filter((p) => p.name !== playerName);
 
 const checkServerStatus = async (player: Player): Promise<boolean> => {
   try {
-    await axios.get(`${player.url}/name`, { timeout: 1000 });
+    await axios.get(`${player.url}/ping`, { timeout: 1000 });
     return true;
   } catch {
     return false;
@@ -145,6 +149,9 @@ const App: React.FC = () => {
           standings,
         });
         newBids[p.name] = res.data;
+        if(res.data?.amountToA + res.data?.amountToB > p.coins) {
+          alert(`OH NO :( ${p.name} is disqualified, the AI will take over her part after a quick technical break!`)
+        }
       }
       setBids(newBids);
 
@@ -336,7 +343,7 @@ const App: React.FC = () => {
                     src="/images/arrow2.png"
                     className="h-8 rotate-140 -mr-4 z-1"
                   />
-                  <span className="z-10">{bids["Akos"]?.amountToA ?? "-"}</span>
+                  <span className="z-10">{coinFormat(bids["Akos"]?.amountToA) ?? "-"}</span>
                   <img src="/images/coin.png" className="w-4 mx-1 z-10" />
                 </motion.div>
 
@@ -349,7 +356,7 @@ const App: React.FC = () => {
                 >
                   {" "}
                   <span className="z-10">
-                    {bids["Razvan"]?.amountToA ?? "-"}
+                    {coinFormat(bids["Razvan"]?.amountToA) ?? "-"}
                   </span>
                   <img src="/images/coin.png" className="w-4 mx-1 z-10" />
                   <img
@@ -370,7 +377,7 @@ const App: React.FC = () => {
                   animate={{ opacity: 1, y: 0, transition: { delay: 0 } }}
                   transition={{ duration: 0.5 }}
                 >
-                  <span className="z-10">{bids["Akos"]?.amountToB ?? "-"}</span>
+                  <span className="z-10">{coinFormat(bids["Akos"]?.amountToB) ?? "-"}</span>
                   <img src="/images/coin.png" className="w-4 mx-1 z-10" />
                   <img
                     src="/images/arrow2.png"
@@ -389,7 +396,7 @@ const App: React.FC = () => {
                     className="h-8 rotate-40 scale-x-[-1] -mr-4 z-1"
                   />
                   <span className="z-10">
-                    {bids["Kristof"]?.amountToA ?? "-"}
+                    {coinFormat(bids["Kristof"]?.amountToA) ?? "-"}
                   </span>
                   <img src="/images/coin.png" className="w-4 mx-1 z-10" />
                 </motion.div>
@@ -413,7 +420,7 @@ const App: React.FC = () => {
                   />
                   <div className="flex">
                     <img src="/images/coin.png" className="w-4 mx-1" />
-                    {bids["Razvan"]?.amountToB ?? "-"}
+                    {coinFormat(bids["Razvan"]?.amountToB) ?? "-"}
                   </div>
                 </motion.div>
                 <motion.div
@@ -425,7 +432,7 @@ const App: React.FC = () => {
                 >
                   <div className="flex">
                     <img src="/images/coin.png" className="w-4 mx-1" />
-                    {bids["Kristof"]?.amountToB ?? "-"}
+                    {coinFormat(bids["Kristof"]?.amountToB) ?? "-"}
                   </div>
                   <img src="/images/arrow2.png" className="h-8 scale-x-[-1]" />
                 </motion.div>

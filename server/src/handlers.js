@@ -3,7 +3,7 @@
  * 
  * This file contains the handler you need to implement for your bidding bot:
  * 
- * 1️⃣  POST /bid — calculates and returns your bid amounts.
+ *   POST /bid — calculates and returns your bid amounts.
  * 
  * You can change the logic inside the postBidHandler function.
  * DO NOT modify other parts of the project.

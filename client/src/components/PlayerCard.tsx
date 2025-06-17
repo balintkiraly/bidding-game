@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { coinFormat } from "../App";
 
 type Player = {
   name: string;
@@ -54,8 +55,8 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, lost = false, won = fal
         className={`w-20 h-20 rounded-full mb-3 ${player.online ? "ring-4 ring-green-400" : "opacity-50"}`}
       />
       {lost && <img src="/images/lose.png" className="w-8 absolute top-13"/>}
-      {lost && <img src="/images/teardrop.png" className="w-1 absolute top-12 left-23"/>}
-      {lost && <img src="/images/teardrop.png" className="w-1 absolute top-12 left-18"/>}
+      {lost && <img src="/images/teardrop.png" className="w-1 absolute top-12 left-26"/>}
+      {lost && <img src="/images/teardrop.png" className="w-1 absolute top-12 left-22"/>}
       {won && <img src="/images/win.png" className="w-8 absolute top-13"/>}
       <h3 className="font-bold text-lg mb-1">{player.name}</h3>
 
@@ -69,7 +70,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, lost = false, won = fal
             variants={popAnimation}
             className="text-xl font-mono text-yellow-600"
           >
-            {player.coins}
+            {coinFormat(player.coins)}
           </motion.span>
         </div>
 
