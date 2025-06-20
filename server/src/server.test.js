@@ -14,6 +14,11 @@ const SAMPLE_STANDINGS = [
     coins: { own: 1, teamA: 34, teamB: 67 },
     trophies: { own: 1, teamA: 1, teamB: 1 },
   },
+  // 1 coin left
+  {
+    coins: { own: 143, teamA: 63, teamB: 94 },
+    trophies: { own: 1, teamA: 1, teamB: 1 },
+  },
   // No coins left
   {
     coins: { own: 0, teamA: 23, teamB: 54 },
@@ -36,9 +41,8 @@ describe("Server Endpoints", () => {
         expect(typeof res.body.amountToB).toBe("number");
 
         // Spend max the on coins
-        expect(
-          res.body.amountToA + res.body.amountToB <= standings.coins.own
-        ).toBeTruthy;
+        expect(res.body.amountToA + res.body.amountToB <= standings.coins.own)
+          .toBeTruthy;
       })
     );
   });
